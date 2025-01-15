@@ -7,6 +7,7 @@ const User = require ("../../models/User");
 const registerUser = async (req, res) =>{
   const {userName , email , password} = req.body;
   try{
+    //here we are working to find email from mongod
     const checkUser = await User.findOne({email});
     if(checkUser){
       return res.json({
@@ -93,7 +94,8 @@ const loginUser = async (req,res) =>{
 
 //logout user
 const logoutUser = async (req,res) =>{
-  res.clearCookies('token').json({
+  res.clearCookie('token');
+  res.json({
     success : true,
     message : "Logged Out Successfully"
   });
